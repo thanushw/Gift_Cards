@@ -1,1 +1,3 @@
-Use PychCharm that eassy to handle code
+Use Pycharm which is easy to manipulate the code.
+
+
