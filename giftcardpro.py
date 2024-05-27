@@ -102,7 +102,7 @@ def save_trending_topics(topics, filename):
 def perform_search(file_path, device_mode):
 
     if device_mode == 'mobile':
-        mobile_emulation = {"deviceName": "iPhone X"}
+        mobile_emulation = {"deviceName": "iPhone 14 Pro Max"}
         options = Options()
         options.add_experimental_option("mobileEmulation", mobile_emulation)
         driver = webdriver.Edge(options=options)
@@ -138,18 +138,27 @@ def main():
         print("**************************************************")
         print("*          Microsoft Reward Collector            *")
         print("**************************************************")
-        display_country_list()
-        geo_code, country = get_user_selection()
-        device_mode = get_device_selection()
-        trending_topics = fetch_trending_topics(geo_code)
-        if device_mode == 'mobile':
-            filename = 'mobileGift.txt'
-        else:
-            filename = 'desktopGift.txt'
-        save_trending_topics(trending_topics, filename)
-        print("Starting search process...")
-        perform_search(filename, device_mode)
-        print("Search process End.")
+
+        prostart = input("Do you want to do manual search or auto search? (manual/auto): ").strip().lower()
+        if prostart == "auto":
+            display_country_list()
+            geo_code, country = get_user_selection()
+            device_mode = get_device_selection()
+            trending_topics = fetch_trending_topics(geo_code)
+            if device_mode == 'mobile':
+                filename = 'mobileGift.txt'
+            else:
+                filename = 'desktopGift.txt'
+            save_trending_topics(trending_topics, filename)
+            print("Starting search process...")
+            perform_search(filename, device_mode)
+            print("Search process End.")
+        elif prostart == "manual":
+            filename = 'search_topics.txt'
+            device_mode = get_device_selection()
+            print("Starting search process...")
+            perform_search(filename, device_mode)
+            print("Search process End.")
         restart = input("Do you want to start the program again or exit? (start/exit): ").strip().lower()
         if restart == 'exit':
             print("Thank You for Using Microsoft Reward Collector .")
